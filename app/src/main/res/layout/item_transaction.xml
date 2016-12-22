@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+  <data>
+    <variable
+        name="viewModel"
+        type="com.ground0.masterofcoin.auditTransaction.viewModel.TransactionItemViewModelFactory.TransactionItemViewModel"
+        />
+  </data>
+  <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      >
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/view_margin_size1"
+        app:cardBackgroundColor="@color/cardview_light_background"
+        app:cardCornerRadius="@dimen/cardview_default_radius"
+        app:cardElevation="@dimen/cardview_default_elevation"
+        >
+      <RelativeLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          >
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:background="@color/md_yellow_500"
+            />
+        <ImageView
+            android:id="@+id/i_transaction_image"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:layout_margin="@dimen/view_margin_size1"
+            android:src="#64dd17"
+            />
+        <TextView
+            android:id="@+id/i_transaction_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/i_transaction_amount"
+            android:layout_toRightOf="@+id/i_transaction_image"
+            android:maxLines="2"
+            android:text="Recharge of Idea Mobile 8477981111"
+            android:textAppearance="@style/NormalText"
+            />
+
+        <TextView
+            android:id="@+id/i_transaction_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="@dimen/view_margin_size2"
+            android:text="198"
+            android:textAppearance="@style/ExpenseText"
+            />
+      </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+  </FrameLayout>
+
+</layout>

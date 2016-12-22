@@ -9,7 +9,7 @@ import org.threeten.bp.LocalDateTime;
 
 public class Expense {
 
-  Long id;
+  String id;
 
   String description;
 
@@ -21,11 +21,11 @@ public class Expense {
 
   String state;
 
-  public Long getId() {
+  public String getId() {
     return id;
   }
 
-  public void setId(Long id) {
+  public void setId(String id) {
     this.id = id;
   }
 

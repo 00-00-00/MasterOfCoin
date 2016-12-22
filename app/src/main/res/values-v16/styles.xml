@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <style name="ExpenseText" parent="TextAppearance.AppCompat">
+    <item name="android:fontFamily">sans-serif-medium</item>
+    <item name="android:textColor">@color/wageningen_green</item>
+    <item name="android:textSize">20sp</item>
+  </style>
+
+  <style name="NormalText" parent="TextAppearance.AppCompat">
+    <item name="android:fontFamily">sans-serif-light</item>
+    <item name="android:textSize">14sp</item>
+    <item name="android:textColor">@color/textColorPrimary</item>
+  </style>
+</resources>

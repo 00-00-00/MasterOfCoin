@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ground0.masterofcoin">
 
+  <uses-permission android:name="android.permission.INTERNET"/>
+
   <application
       android:name=".core.baseComponents.BaseApplication"
       android:allowBackup="true"

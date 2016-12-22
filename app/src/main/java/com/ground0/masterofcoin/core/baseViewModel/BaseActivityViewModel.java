@@ -1,6 +1,7 @@
 package com.ground0.masterofcoin.core.baseViewModel;
 
 import com.ground0.masterofcoin.core.baseComponents.BaseActivity;
+import com.ground0.masterofcoin.core.rx.SubscriptionBuilder;
 import java.lang.ref.WeakReference;
 
 /**
@@ -10,6 +11,7 @@ import java.lang.ref.WeakReference;
 public abstract class BaseActivityViewModel<T extends BaseActivity> implements ViewModel {
 
   WeakReference<T> activity;
+  SubscriptionBuilder subscriptionBuilder = SubscriptionBuilder.getInstance();
 
   public void registerActivity(T activity) {
     this.activity = new WeakReference<T>(activity);
@@ -17,5 +19,9 @@ public abstract class BaseActivityViewModel<T extends BaseActivity> implements V
 
   public T getActivity() {
     return activity.get();
+  }
+
+  public SubscriptionBuilder getSubscriptionBuilder() {
+    return subscriptionBuilder;
   }
 }
