@@ -43,7 +43,7 @@
             android:layout_toLeftOf="@+id/i_transaction_amount"
             android:layout_toRightOf="@+id/i_transaction_image"
             android:maxLines="2"
-            android:text="Recharge of Idea Mobile 8477981111"
+            android:text='@{viewModel.expense.description}'
             android:textAppearance="@style/NormalText"
             />
 
@@ -54,7 +54,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_margin="@dimen/view_margin_size2"
-            android:text="198"
+            android:text='@{viewModel.amount}'
             android:textAppearance="@style/ExpenseText"
             />
       </RelativeLayout>

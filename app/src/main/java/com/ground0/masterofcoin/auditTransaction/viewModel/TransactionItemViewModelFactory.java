@@ -23,5 +23,9 @@ public class TransactionItemViewModelFactory {
     public Expense getExpense() {
       return expense;
     }
+
+    public String getAmount() {
+      return expense.getAmount().toPlainString();
+    }
   }
 }

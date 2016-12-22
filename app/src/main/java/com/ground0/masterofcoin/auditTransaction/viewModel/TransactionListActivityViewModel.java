@@ -8,6 +8,7 @@ import com.ground0.model.TransactionObject;
 import com.ground0.repository.repository.UserRepositoryImpl;
 import java.util.ArrayList;
 import java.util.List;
+import rx.android.schedulers.AndroidSchedulers;
 
 /**
  * Created by zer0 on 22/12/16.
@@ -35,11 +36,13 @@ public class TransactionListActivityViewModel
   }
 
   public void fetchData() {
-    userRepository.getTransactions().subscribe(getSubscriptionBuilder().builder().onNext(value -> {
-      TransactionObject transactionObject = (TransactionObject) value;
-      updateData(transactionObject.getExpenses());
-    }).onError(error -> {
-      error.printStackTrace();
-    }).setUnsubscribeOnComplete(true).build());
+    userRepository.getTransactions()
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(getSubscriptionBuilder().builder().onNext(value -> {
+          TransactionObject transactionObject = (TransactionObject) value;
+          updateData(transactionObject.getExpenses());
+        }).onError(error -> {
+          error.printStackTrace();
+        }).setUnsubscribeOnComplete(true).build());
   }
 }
