@@ -6,7 +6,7 @@ import java.util.List;
  * Created by zer0 on 22/12/16.
  */
 
-public class Object {
+public class TransactionObject {
 
   List<Expense> expenses;
 

@@ -1,6 +1,6 @@
 package com.ground0.repository.repository;
 
-import com.ground0.model.Object;
+import com.ground0.model.TransactionObject;
 import rx.Observable;
 
 /**
@@ -9,5 +9,5 @@ import rx.Observable;
 
 public interface UserRepository  {
 
-  Observable<Object> getTransactions();
+  Observable<TransactionObject> getTransactions();
 }

@@ -1,6 +1,6 @@
 package com.ground0.repository.repository;
 
-import com.ground0.model.Object;
+import com.ground0.model.TransactionObject;
 import com.ground0.repository.store.ServerStore;
 import rx.Observable;
 
@@ -22,7 +22,7 @@ public class UserRepositoryImpl implements UserRepository {
     return instance;
   }
 
-  @Override public Observable<Object> getTransactions() {
+  @Override public Observable<TransactionObject> getTransactions() {
     return serverStore.getTransactions();
   }
 }

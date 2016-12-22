@@ -1,6 +1,6 @@
 package com.ground0.repository.store;
 
-import com.ground0.model.Object;
+import com.ground0.model.TransactionObject;
 import com.ground0.repository.BuildConfig;
 import com.ground0.repository.CustomObjectMapper;
 import com.ground0.repository.HttpResponseStatusOperator;
@@ -55,7 +55,7 @@ public class ServerStore implements UserRepository {
     restImpl = retrofit.create(Store.class);
   }
 
-  @Override public Observable<Object> getTransactions() {
+  @Override public Observable<TransactionObject> getTransactions() {
     return restImpl.getTransactions().lift(responseStatusOperator);
   }
 }
