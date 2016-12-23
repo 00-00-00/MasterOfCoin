@@ -3,4 +3,5 @@
   <string name="save">Save</string>
   <string name="verified">Verified</string>
   <string name="fraud">Fraud</string>
+  <string name="expense_detail">Expense Detail</string>
 </resources>
