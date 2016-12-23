@@ -25,6 +25,6 @@ public class DataPollService extends BaseService {
   }
 
   public void downloadData() {
-    getAppBehaviourSubject().onNext(new ExpenseUpdated());
+    getAppPublishSubject().onNext(new ExpenseUpdated());
   }
 }

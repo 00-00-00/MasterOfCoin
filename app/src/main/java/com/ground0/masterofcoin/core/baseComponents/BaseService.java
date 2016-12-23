@@ -4,6 +4,7 @@ import android.app.IntentService;
 import com.ground0.masterofcoin.core.event.Event;
 import com.ground0.masterofcoin.core.rx.SubscriptionBuilder;
 import rx.subjects.BehaviorSubject;
+import rx.subjects.PublishSubject;
 import rx.subscriptions.CompositeSubscription;
 
 /**
@@ -30,6 +31,10 @@ public abstract class BaseService extends IntentService {
 
   public BehaviorSubject<Event> getAppBehaviourSubject() {
     return getBaseApplication().getAppBehaviourSubject();
+  }
+
+  public PublishSubject<Event> getAppPublishSubject() {
+    return getBaseApplication().getAppPublishSubject();
   }
 
   public SubscriptionBuilder getSubscriptionBuilder() {

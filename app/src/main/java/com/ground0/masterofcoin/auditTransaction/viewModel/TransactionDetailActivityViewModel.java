@@ -29,6 +29,7 @@ public class TransactionDetailActivityViewModel
 
   @Override public void afterRegister() {
     super.afterRegister();
+    fetchData();
     initSubscriptions();
   }
 
@@ -91,6 +92,15 @@ public class TransactionDetailActivityViewModel
     saveData();
   }
 
+  private void updateExpense() {
+    List<Expense> expenses = transactionObject.getExpenses();
+    for (int i = 0; i < expenses.size(); i++) {
+      if (expenses.get(i).equals(this.expense)) {
+        expense = expenses.get(i);
+      }
+    }
+  }
+
   private void saveData() {
     getCompositeSubscription().add(userRepository.updateTransactions(transactionObject)
         .observeOn(AndroidSchedulers.mainThread())
@@ -104,6 +114,17 @@ public class TransactionDetailActivityViewModel
           }
           getActivity().showError(errorMessage);
         }).build()));
+  }
+
+  public void fetchData() {
+    getCompositeSubscription().add(userRepository.getTransactions()
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(getSubscriptionBuilder().builder().onNext(value -> {
+          transactionObject = (TransactionObject) value;
+          updateExpense();
+        }).onError(error -> {
+          error.printStackTrace();
+        }).setUnsubscribeOnComplete(true).build()));
   }
 
   public void retry() {

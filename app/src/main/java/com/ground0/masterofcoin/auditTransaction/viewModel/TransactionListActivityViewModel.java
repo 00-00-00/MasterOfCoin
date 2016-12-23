@@ -66,7 +66,7 @@ public class TransactionListActivityViewModel extends BaseActivityViewModel<Tran
 
   public void initSubscriptions() {
     getCompositeSubscription().add(
-        getAppBehaviourBus().filter(event -> event instanceof ExpenseUpdated)
+        getAppPublishBus().filter(event -> event instanceof ExpenseUpdated)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(getSubscriptionBuilder().builder().onNext(event -> {
               Log.d(getClass().getSimpleName(), "Updating polled data");

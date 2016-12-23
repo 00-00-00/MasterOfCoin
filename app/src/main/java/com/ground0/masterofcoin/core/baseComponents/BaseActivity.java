@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 import com.ground0.masterofcoin.core.event.Event;
 import rx.subjects.BehaviorSubject;
+import rx.subjects.PublishSubject;
 import rx.subscriptions.CompositeSubscription;
 
 /**
@@ -36,6 +37,10 @@ public abstract class BaseActivity extends AppCompatActivity {
 
   public BehaviorSubject<Event> getAppBehaviourSubject() {
     return getBaseApplication().getAppBehaviourSubject();
+  }
+
+  public PublishSubject<Event> getAppPublishSubject() {
+    return getBaseApplication().getAppPublishSubject();
   }
 
   public BehaviorSubject<Event> getActivityBehaviourSubject() {

@@ -5,6 +5,7 @@ import com.ground0.masterofcoin.core.event.Event;
 import com.ground0.masterofcoin.core.rx.SubscriptionBuilder;
 import java.lang.ref.WeakReference;
 import rx.subjects.BehaviorSubject;
+import rx.subjects.PublishSubject;
 import rx.subscriptions.CompositeSubscription;
 
 /**
@@ -36,6 +37,11 @@ public abstract class BaseActivityViewModel<T extends BaseActivity> implements V
   public BehaviorSubject<Event> getAppBehaviourBus() {
     if (getActivity() == null) return null;
     return getActivity().getAppBehaviourSubject();
+  }
+
+  public PublishSubject<Event> getAppPublishBus() {
+    if (getActivity() == null) return null;
+    return getActivity().getAppPublishSubject();
   }
 
   public CompositeSubscription getCompositeSubscription() {
