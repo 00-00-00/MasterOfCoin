@@ -10,6 +10,7 @@ import com.ground0.model.TransactionObject;
 import com.ground0.repository.repository.UserRepository;
 import com.ground0.repository.repository.UserRepositoryImpl;
 import java.util.List;
+import org.apache.commons.lang3.StringUtils;
 import rx.android.schedulers.AndroidSchedulers;
 
 /**
@@ -20,18 +21,24 @@ public class TransactionDetailActivityViewModel
     extends BaseActivityViewModel<TransactionDetailActivity> {
 
   UserRepository userRepository = UserRepositoryImpl.getInstance();
+
   TransactionObject transactionObject;
   Expense expense;
   ObservableField<Boolean> isFraud = new ObservableField<>(false);
   ObservableField<Boolean> isVerified = new ObservableField<>(false);
 
+  @Override public void afterRegister() {
+    super.afterRegister();
+    initSubscriptions();
+  }
+
   public void initSubscriptions() {
     getCompositeSubscription().add(getAppBehaviourBus().filter(event -> event instanceof ViewDetail)
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(getSubscriptionBuilder().builder().onNext(event -> {
-          ViewDetail.TransactionDetailWrapper data = ((ViewDetail) event).getData();
-          transactionObject = data.getTransactionObject();
-          expense = data.getExpense();
+          expense = ((ViewDetail) event).getData();
+          /*transactionObject = data.getTransactionObject();
+          expense = data.getExpense();*/
           initFields();
           getActivity().invalidateBinding();
         }).build()));
@@ -65,12 +72,12 @@ public class TransactionDetailActivityViewModel
 
   public void setTransactionVerification(boolean transactionVerification) {
     isVerified.set(transactionVerification);
-    expense.setState(transactionVerification ? "verified" : "unverified");
+    if (expense != null) expense.setState(transactionVerification ? "verified" : "unverified");
   }
 
   public void setTransactionAsFraudlent(boolean transactionAsFraudlent) {
     isFraud.set(transactionAsFraudlent);
-    expense.setState(transactionAsFraudlent ? "fraud" : expense.getCategory());
+    if (expense != null) expense.setState(transactionAsFraudlent ? "fraud" : expense.getCategory());
   }
 
   public void onSave(View view) {
@@ -86,10 +93,20 @@ public class TransactionDetailActivityViewModel
 
   private void saveData() {
     getCompositeSubscription().add(userRepository.updateTransactions(transactionObject)
+        .observeOn(AndroidSchedulers.mainThread())
         .subscribe(getSubscriptionBuilder().builder().onNext(value -> {
-
+          getActivity().showToast("Successfully Updated");
+          getActivity().finish();
         }).onError(e -> {
-
+          String errorMessage = "Something went wrong";
+          if (e instanceof Throwable) {
+            errorMessage = StringUtils.isNotBlank(e.getMessage()) ? e.getMessage() : errorMessage;
+          }
+          getActivity().showError(errorMessage);
         }).build()));
+  }
+
+  public void retry() {
+    saveData();
   }
 }

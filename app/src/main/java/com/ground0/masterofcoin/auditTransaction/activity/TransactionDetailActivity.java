@@ -3,6 +3,8 @@ package com.ground0.masterofcoin.auditTransaction.activity;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
+import android.view.View;
 import butterknife.ButterKnife;
 import butterknife.OnCheckedChanged;
 import com.ground0.masterofcoin.R;
@@ -21,7 +23,6 @@ public class TransactionDetailActivity extends BaseActivity {
 
   @Override public void registerActivityWithViewModel() {
     viewModel.registerActivity(this);
-    viewModel.initSubscriptions();
   }
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -44,5 +45,11 @@ public class TransactionDetailActivity extends BaseActivity {
   @OnCheckedChanged(R.id.a_transaction_detail_verified)
   public void onVerifiedCheckboxChecked(boolean checked) {
     viewModel.setTransactionVerification(checked);
+  }
+
+  public void showError(String errorMessage) {
+    View view = getWindow().getDecorView().getRootView().findViewById(android.R.id.content);
+    Snackbar.make(view, errorMessage, Snackbar.LENGTH_INDEFINITE)
+        .setAction("Retry", v -> viewModel.retry());
   }
 }

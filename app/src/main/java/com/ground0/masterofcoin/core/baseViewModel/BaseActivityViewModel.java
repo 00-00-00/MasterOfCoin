@@ -18,6 +18,11 @@ public abstract class BaseActivityViewModel<T extends BaseActivity> implements V
 
   public void registerActivity(T activity) {
     this.activity = new WeakReference<T>(activity);
+    afterRegister();
+  }
+
+  public void afterRegister() {
+
   }
 
   public T getActivity() {

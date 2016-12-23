@@ -34,6 +34,11 @@ public class TransactionListActivityViewModel extends BaseActivityViewModel<Tran
   UserRepositoryImpl userRepository = UserRepositoryImpl.getInstance();
   PendingIntent alarmIntent;
 
+  @Override public void afterRegister() {
+    super.afterRegister();
+    initSubscriptions();
+  }
+
   public TransactionListAdapter getRecyclerAdapter() {
     if (transactionListAdapter == null) {
       transactionListAdapter = new TransactionListAdapter(this, expenses);
@@ -86,7 +91,7 @@ public class TransactionListActivityViewModel extends BaseActivityViewModel<Tran
   }
 
   @Override public void openDetail(Expense expense) {
-    getAppBehaviourBus().onNext(new ViewDetail(expense, transactionObject));
+    getAppBehaviourBus().onNext(new ViewDetail(expense));
     getActivity().startActivity(new Intent(getActivity(), TransactionDetailActivity.class));
   }
 }

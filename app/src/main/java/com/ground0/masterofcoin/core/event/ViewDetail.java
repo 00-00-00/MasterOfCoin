@@ -1,25 +1,24 @@
 package com.ground0.masterofcoin.core.event;
 
 import com.ground0.model.Expense;
-import com.ground0.model.TransactionObject;
 
 /**
  * Created by zer0 on 23/12/16.
  */
 
-public class ViewDetail implements Event<ViewDetail.TransactionDetailWrapper> {
+public class ViewDetail implements Event<Expense> {
 
-  TransactionDetailWrapper transactionDetailWrapper;
+  Expense expense;
 
-  public ViewDetail(Expense expense, TransactionObject transactionObject) {
-    this.transactionDetailWrapper = new TransactionDetailWrapper(expense, transactionObject);
+  public ViewDetail(Expense expense) {
+    this.expense = expense;
   }
 
-  @Override public TransactionDetailWrapper getData() {
-    return transactionDetailWrapper;
+  @Override public Expense getData() {
+    return expense;
   }
 
-  public class TransactionDetailWrapper {
+  /*public class TransactionDetailWrapper {
     TransactionObject transactionObject;
     Expense expense;
 
@@ -35,5 +34,5 @@ public class ViewDetail implements Event<ViewDetail.TransactionDetailWrapper> {
     public Expense getExpense() {
       return expense;
     }
-  }
+  }*/
 }

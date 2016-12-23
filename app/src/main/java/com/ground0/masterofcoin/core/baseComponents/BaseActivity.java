@@ -3,6 +3,7 @@ package com.ground0.masterofcoin.core.baseComponents;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 import com.ground0.masterofcoin.core.event.Event;
 import rx.subjects.BehaviorSubject;
 import rx.subscriptions.CompositeSubscription;
@@ -43,5 +44,9 @@ public abstract class BaseActivity extends AppCompatActivity {
 
   public CompositeSubscription getCompositeSubscription() {
     return compositeSubscription;
+  }
+
+  public void showToast(String message) {
+    Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
   }
 }
