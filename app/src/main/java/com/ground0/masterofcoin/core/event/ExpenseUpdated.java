@@ -1,20 +1,15 @@
 package com.ground0.masterofcoin.core.event;
 
-import com.ground0.model.TransactionObject;
-
 /**
  * Created by zer0 on 23/12/16.
  */
 
-public class ExpenseUpdated implements Event<TransactionObject> {
+public class ExpenseUpdated implements Event<Void> {
 
-  TransactionObject transactionObject;
-
-  public ExpenseUpdated(TransactionObject transactionObject) {
-    this.transactionObject = transactionObject;
+  public ExpenseUpdated() {
   }
 
-  @Override public TransactionObject getData() {
-    return transactionObject;
+  @Override public Void getData() {
+    return null;
   }
 }

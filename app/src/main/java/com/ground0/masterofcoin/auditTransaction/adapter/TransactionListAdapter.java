@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.ground0.masterofcoin.R;
 import com.ground0.masterofcoin.auditTransaction.viewModel.TransactionItemViewModelFactory;
+import com.ground0.masterofcoin.auditTransaction.viewModel.helper.TransactionItemViewModelHandler;
 import com.ground0.masterofcoin.databinding.ItemTransactionBinding;
 import com.ground0.model.Expense;
 import java.util.List;
@@ -23,9 +24,10 @@ public class TransactionListAdapter
   LayoutInflater layoutInflater;
   TransactionItemViewModelFactory viewModelFactory;
 
-  public TransactionListAdapter(@NonNull List<Expense> data) {
+  public TransactionListAdapter(TransactionItemViewModelHandler handler,
+      @NonNull List<Expense> data) {
     this.data = data;
-    viewModelFactory = new TransactionItemViewModelFactory();
+    viewModelFactory = new TransactionItemViewModelFactory(handler);
   }
 
   @Override public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

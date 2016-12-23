@@ -1,5 +1,7 @@
 package com.ground0.masterofcoin.auditTransaction.viewModel;
 
+import android.view.View;
+import com.ground0.masterofcoin.auditTransaction.viewModel.helper.TransactionItemViewModelHandler;
 import com.ground0.model.Expense;
 
 /**
@@ -7,6 +9,12 @@ import com.ground0.model.Expense;
  */
 
 public class TransactionItemViewModelFactory {
+
+  TransactionItemViewModelHandler handler;
+
+  public TransactionItemViewModelFactory(TransactionItemViewModelHandler handler) {
+    this.handler = handler;
+  }
 
   public TransactionItemViewModel createViewModel(Expense expense) {
     return new TransactionItemViewModel(expense);
@@ -22,6 +30,10 @@ public class TransactionItemViewModelFactory {
 
     public Expense getExpense() {
       return expense;
+    }
+
+    public void openDetail(View view) {
+      handler.openDetail(expense);
     }
 
     public String getAmount() {
