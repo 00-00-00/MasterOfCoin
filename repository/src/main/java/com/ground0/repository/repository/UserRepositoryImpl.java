@@ -2,6 +2,7 @@ package com.ground0.repository.repository;
 
 import com.ground0.model.TransactionObject;
 import com.ground0.repository.store.ServerStore;
+import okhttp3.ResponseBody;
 import rx.Observable;
 
 /**
@@ -24,5 +25,10 @@ public class UserRepositoryImpl implements UserRepository {
 
   @Override public Observable<TransactionObject> getTransactions() {
     return serverStore.getTransactions();
+  }
+
+  @Override
+  public Observable<ResponseBody> updateTransactions(TransactionObject transactionObject) {
+    return serverStore.updateTransactions(transactionObject);
   }
 }

@@ -7,6 +7,7 @@ import com.ground0.repository.HttpResponseStatusOperator;
 import com.ground0.repository.repository.UserRepository;
 import java.util.concurrent.TimeUnit;
 import okhttp3.OkHttpClient;
+import okhttp3.ResponseBody;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.jackson.JacksonConverterFactory;
@@ -57,5 +58,10 @@ public class ServerStore implements UserRepository {
 
   @Override public Observable<TransactionObject> getTransactions() {
     return restImpl.getTransactions().lift(responseStatusOperator);
+  }
+
+  @Override
+  public Observable<ResponseBody> updateTransactions(TransactionObject transactionObject) {
+    return restImpl.updateTransactions(transactionObject).lift(responseStatusOperator);
   }
 }

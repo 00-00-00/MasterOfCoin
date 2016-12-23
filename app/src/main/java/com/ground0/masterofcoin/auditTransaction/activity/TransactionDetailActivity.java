@@ -4,6 +4,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import butterknife.ButterKnife;
+import butterknife.OnCheckedChanged;
 import com.ground0.masterofcoin.R;
 import com.ground0.masterofcoin.auditTransaction.viewModel.TransactionDetailActivityViewModel;
 import com.ground0.masterofcoin.core.baseComponents.BaseActivity;
@@ -33,5 +34,15 @@ public class TransactionDetailActivity extends BaseActivity {
 
   public void invalidateBinding() {
     transactionDetailBinding.invalidateAll();
+  }
+
+  @OnCheckedChanged(R.id.a_transaction_detail_fraudlent)
+  public void onFraudlentCheckboxChecked(boolean checked) {
+    viewModel.setTransactionAsFraudlent(checked);
+  }
+
+  @OnCheckedChanged(R.id.a_transaction_detail_verified)
+  public void onVerifiedCheckboxChecked(boolean checked) {
+    viewModel.setTransactionVerification(checked);
   }
 }

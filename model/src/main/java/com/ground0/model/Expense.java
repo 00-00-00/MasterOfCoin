@@ -68,4 +68,13 @@ public class Expense {
   public void setState(String state) {
     this.state = state;
   }
+
+  @Override public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+
+    Expense expense = (Expense) o;
+
+    return id != null ? id.equals(expense.id) : expense.id == null;
+  }
 }
