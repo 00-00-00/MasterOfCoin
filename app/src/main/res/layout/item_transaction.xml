@@ -15,11 +15,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/view_margin_size1"
+        android:clickable="true"
+        android:focusable="true"
         app:cardBackgroundColor="@color/cardview_light_background"
         app:cardCornerRadius="@dimen/cardview_default_radius"
         app:cardElevation="@dimen/cardview_default_elevation"
-        android:clickable="true"
-        android:focusable="true"
         >
       <RelativeLayout
           android:layout_width="match_parent"
@@ -30,14 +30,14 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="4dp"
-            android:background="@color/md_yellow_500"
+            android:background='@{viewModel.state}'
             />
         <ImageView
             android:id="@+id/i_transaction_image"
             android:layout_width="72dp"
             android:layout_height="72dp"
-            android:layout_margin="@dimen/view_margin_size1"
-            android:src="#64dd17"
+            android:layout_margin="@dimen/view_margin_size2"
+            android:src='@{viewModel.drawable}'
             />
         <TextView
             android:id="@+id/i_transaction_description"

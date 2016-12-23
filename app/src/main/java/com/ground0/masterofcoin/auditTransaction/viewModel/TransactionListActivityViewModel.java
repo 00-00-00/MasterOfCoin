@@ -4,6 +4,9 @@ import android.app.AlarmManager;
 import android.app.Application;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import com.ground0.masterofcoin.auditTransaction.activity.TransactionDetailActivity;
 import com.ground0.masterofcoin.auditTransaction.activity.TransactionListActivity;
@@ -37,6 +40,14 @@ public class TransactionListActivityViewModel extends BaseActivityViewModel<Tran
   @Override public void afterRegister() {
     super.afterRegister();
     initSubscriptions();
+  }
+
+  @Override public Drawable getDrawable(int drawable) {
+    return ContextCompat.getDrawable(getActivity(), drawable);
+  }
+
+  @Override public int getColor(int color) {
+    return ContextCompat.getColor(getActivity(), color);
   }
 
   public TransactionListAdapter getRecyclerAdapter() {
