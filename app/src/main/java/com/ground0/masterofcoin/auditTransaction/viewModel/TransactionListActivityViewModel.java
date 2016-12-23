@@ -3,6 +3,7 @@ package com.ground0.masterofcoin.auditTransaction.viewModel;
 import com.ground0.masterofcoin.auditTransaction.activity.TransactionListActivity;
 import com.ground0.masterofcoin.auditTransaction.adapter.TransactionListAdapter;
 import com.ground0.masterofcoin.core.baseViewModel.BaseActivityViewModel;
+import com.ground0.masterofcoin.core.event.ExpenseUpdated;
 import com.ground0.model.Expense;
 import com.ground0.model.TransactionObject;
 import com.ground0.repository.repository.UserRepositoryImpl;
@@ -36,13 +37,26 @@ public class TransactionListActivityViewModel
   }
 
   public void fetchData() {
-    userRepository.getTransactions()
+    getCompositeSubscription().add(userRepository.getTransactions()
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(getSubscriptionBuilder().builder().onNext(value -> {
           TransactionObject transactionObject = (TransactionObject) value;
           updateData(transactionObject.getExpenses());
         }).onError(error -> {
           error.printStackTrace();
-        }).setUnsubscribeOnComplete(true).build());
+        }).setUnsubscribeOnComplete(true).build()));
+  }
+
+  public void finishSubscriptions() {
+
+  }
+
+  public void initSubscriptions() {
+    getAppBehaviourBus().filter(event -> event instanceof ExpenseUpdated)
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(getSubscriptionBuilder().builder().onNext(event -> {
+          TransactionObject transactionObject = ((ExpenseUpdated) event).getData();
+          if (transactionObject != null) updateData(transactionObject.getExpenses());
+        }).build());
   }
 }

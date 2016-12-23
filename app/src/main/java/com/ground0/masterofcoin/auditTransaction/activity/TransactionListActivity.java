@@ -28,6 +28,7 @@ public class TransactionListActivity extends BaseActivity {
     setContentView(R.layout.activity_transaction_list);
     ButterKnife.bind(this);
     initRecyclerView();
+    viewModel.initSubscriptions();
   }
 
   @Override protected void onStart() {
@@ -41,5 +42,10 @@ public class TransactionListActivity extends BaseActivity {
       recyclerView.setLayoutManager(
           new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
     }
+  }
+
+  @Override protected void onDestroy() {
+    super.onDestroy();
+    viewModel.finishSubscriptions();
   }
 }
