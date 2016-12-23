@@ -5,6 +5,7 @@
         name="viewModel"
         type="com.ground0.masterofcoin.auditTransaction.viewModel.TransactionDetailActivityViewModel"
         />
+    <import type="org.apache.commons.lang3.text.WordUtils"/>
   </data>
 
   <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -25,22 +26,37 @@
           android:layout_height="match_parent"
           >
         <View
+            android:id="@+id/a_transaction_detail_state_frame"
             android:layout_width="match_parent"
             android:layout_height="4dp"
-            android:background="@color/md_yellow_500"
+            android:background="@{viewModel.state}"
             />
         <ImageView
             android:id="@+id/a_transaction_detail_image"
             android:layout_width="72dp"
             android:layout_height="72dp"
-            android:layout_margin="@dimen/view_margin_size1"
-            android:src="#64dd17"
+            android:layout_below="@id/a_transaction_detail_state_frame"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="@dimen/view_margin_size2"
+            android:src='@{viewModel.category}'
             />
+
+        <TextView
+            android:id="@+id/a_transaction_detail_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/a_transaction_detail_image"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/view_margin_size2"
+            android:text='@{viewModel.amount}'
+            android:textAppearance="@style/ExpenseText"
+            />
+
         <TextView
             android:id="@+id/a_transaction_detail_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/a_transaction_detail_image"
+            android:layout_below="@id/a_transaction_detail_amount"
             android:layout_marginLeft="@dimen/view_margin_size2"
             android:layout_marginTop="@dimen/view_margin_size2"
             android:maxLines="2"
@@ -49,14 +65,10 @@
             />
 
         <TextView
-            android:id="@+id/a_transaction_detail_amount"
+            android:id="@+id/a_transaction_detail_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="@dimen/view_margin_size4"
-            android:layout_marginTop="@dimen/view_margin_size4"
-            android:text='@{viewModel.amount}'
-            android:textAppearance="@style/ExpenseText"
+            android:text='@{viewModel.time}'
             />
         <LinearLayout
             android:layout_width="match_parent"
