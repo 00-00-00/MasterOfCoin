@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.util.Log;
 import com.ground0.masterofcoin.core.baseComponents.BaseService;
 import com.ground0.masterofcoin.core.event.ExpenseUpdated;
-import com.ground0.model.TransactionObject;
 import com.ground0.repository.repository.UserRepository;
 import com.ground0.repository.repository.UserRepositoryImpl;
 
@@ -21,15 +20,11 @@ public class DataPollService extends BaseService {
   }
 
   @Override protected void onHandleIntent(Intent intent) {
-    Log.d(getClass().getSimpleName(), "Fetching Data");
+    Log.d(getClass().getSimpleName(), "Service Started");
     downloadData();
   }
 
   public void downloadData() {
-    getCompositeSubscription().add(userRepository.getTransactions()
-        .subscribe(getSubscriptionBuilder().builder().onNext(value -> {
-          TransactionObject transactionObject = (TransactionObject) value;
-          getAppBehaviourSubject().onNext(new ExpenseUpdated(transactionObject));
-        }).onError(error -> error.printStackTrace()).setUnsubscribeOnComplete(true).build()));
+    getAppBehaviourSubject().onNext(new ExpenseUpdated(null));
   }
 }

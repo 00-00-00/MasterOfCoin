@@ -15,4 +15,8 @@ public class BaseApplication extends Application {
   public BehaviorSubject<Event> getAppBehaviourSubject() {
     return appBehaviourSubject;
   }
+
+  @Override public void onCreate() {
+    super.onCreate();
+  }
 }

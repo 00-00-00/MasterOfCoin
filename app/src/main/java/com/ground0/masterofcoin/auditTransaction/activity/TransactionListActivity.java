@@ -34,6 +34,7 @@ public class TransactionListActivity extends BaseActivity {
   @Override protected void onStart() {
     super.onStart();
     viewModel.fetchData();
+    viewModel.initPollService();
   }
 
   private void initRecyclerView() {
@@ -46,6 +47,6 @@ public class TransactionListActivity extends BaseActivity {
 
   @Override protected void onDestroy() {
     super.onDestroy();
-    viewModel.finishSubscriptions();
+    viewModel.finishPollService();
   }
 }

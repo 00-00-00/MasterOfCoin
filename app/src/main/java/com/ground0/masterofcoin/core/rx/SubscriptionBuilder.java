@@ -1,5 +1,6 @@
 package com.ground0.masterofcoin.core.rx;
 
+import android.util.Log;
 import rx.Subscriber;
 
 /**
@@ -64,6 +65,7 @@ public class SubscriptionBuilder {
     }
 
     @Override public void onError(Throwable e) {
+      Log.e(getClass().getSimpleName(), "Error in subscription");
       if (onError != null) {
         onError.onError(e);
       }
