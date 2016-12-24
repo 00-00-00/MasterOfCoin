@@ -1,18 +1,17 @@
 package com.ground0.masterofcoin.auditTransaction.viewModel;
 
-import android.app.AlarmManager;
-import android.app.Application;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import com.google.android.gms.gcm.GcmNetworkManager;
+import com.google.android.gms.gcm.PeriodicTask;
 import com.ground0.masterofcoin.auditTransaction.activity.TransactionDetailActivity;
 import com.ground0.masterofcoin.auditTransaction.activity.TransactionListActivity;
 import com.ground0.masterofcoin.auditTransaction.adapter.TransactionListAdapter;
 import com.ground0.masterofcoin.auditTransaction.service.DataPollService;
 import com.ground0.masterofcoin.auditTransaction.viewModel.helper.TransactionItemViewModelHandler;
-import com.ground0.masterofcoin.core.baseComponents.BaseActivity;
 import com.ground0.masterofcoin.core.baseViewModel.BaseActivityViewModel;
 import com.ground0.masterofcoin.core.event.ExpenseUpdated;
 import com.ground0.masterofcoin.core.event.ViewDetail;
@@ -35,11 +34,13 @@ public class TransactionListActivityViewModel extends BaseActivityViewModel<Tran
   TransactionObject transactionObject;
   TransactionListAdapter transactionListAdapter;
   UserRepositoryImpl userRepository = UserRepositoryImpl.getInstance();
+  GcmNetworkManager gcmNetworkManager;
   PendingIntent alarmIntent;
 
   @Override public void afterRegister() {
     super.afterRegister();
     initSubscriptions();
+    gcmNetworkManager = GcmNetworkManager.getInstance(getActivity());
   }
 
   @Override public Drawable getDrawable(int drawable) {
@@ -92,19 +93,15 @@ public class TransactionListActivityViewModel extends BaseActivityViewModel<Tran
   }
 
   public void initPollService() {
-    AlarmManager alarm = (AlarmManager) getActivity().getSystemService(Application.ALARM_SERVICE);
-    alarmIntent =
-        PendingIntent.getService(getActivity(), 0, new Intent(getActivity(), DataPollService.class),
-            0);
-    alarm.cancel(alarmIntent);
-    alarm.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 5000, 5000,
-        alarmIntent);
+    PeriodicTask task = new PeriodicTask.Builder().setService(DataPollService.class)
+        .setTag(DataPollService.class.getSimpleName())
+        .setPeriod(30L)
+        .build();
+    gcmNetworkManager.schedule(task);
   }
 
   public void finishPollService() {
-    AlarmManager alarmManager =
-        (AlarmManager) getActivity().getSystemService(BaseActivity.ALARM_SERVICE);
-    alarmManager.cancel(alarmIntent);
+    gcmNetworkManager.cancelAllTasks(DataPollService.class);
   }
 
   @Override public void openDetail(Expense expense) {

@@ -1,6 +1,6 @@
 package com.ground0.masterofcoin.core.baseComponents;
 
-import android.app.IntentService;
+import com.google.android.gms.gcm.GcmTaskService;
 import com.ground0.event.Event;
 import com.ground0.masterofcoin.core.rx.SubscriptionBuilder;
 import rx.subjects.BehaviorSubject;
@@ -11,14 +11,10 @@ import rx.subscriptions.CompositeSubscription;
  * Created by zer0 on 22/12/16.
  */
 
-public abstract class BaseService extends IntentService {
+public abstract class BaseService extends GcmTaskService {
 
   SubscriptionBuilder subscriptionBuilder = SubscriptionBuilder.getInstance();
   CompositeSubscription compositeSubscription = new CompositeSubscription();
-
-  public BaseService(String name) {
-    super(name);
-  }
 
   @Override public void onDestroy() {
     super.onDestroy();
