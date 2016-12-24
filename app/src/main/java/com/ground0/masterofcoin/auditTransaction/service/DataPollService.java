@@ -13,8 +13,7 @@ import com.ground0.repository.repository.UserRepositoryImpl;
 
 public class DataPollService extends BaseService {
 
-  UserRepository userRepository =
-      UserRepositoryImpl.getInstance(getApplicationContext(), getAppPublishSubject());
+  UserRepository userRepository = UserRepositoryImpl.getInstance();
 
   public DataPollService() {
     super("DataPollService");

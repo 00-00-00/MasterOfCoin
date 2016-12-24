@@ -101,7 +101,7 @@
             android:layout_marginTop="@dimen/view_margin_size2"
             android:background="@color/md_light_dividers"
             />
-        <LinearLayout
+        <RadioGroup
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/a_transaction_detail_divider_2"
@@ -110,31 +110,41 @@
             android:layout_marginTop="@dimen/view_margin_size2"
             android:orientation="horizontal"
             >
-          <android.support.v7.widget.AppCompatCheckBox
+
+          <android.support.v7.widget.AppCompatRadioButton
+              android:id="@+id/a_transaction_detail_unverified"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_weight="1"
+              android:checked='@{!viewModel.isVerified &amp;&amp; !viewModel.isFraud}'
+              android:gravity="center_vertical"
+              android:text="@string/unverified"
+              app:buttonTint="@color/md_yellow_700"
+              />
+          <android.support.v7.widget.AppCompatRadioButton
               android:id="@+id/a_transaction_detail_verified"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:layout_weight="1"
               android:checked='@{viewModel.isVerified}'
               android:enabled='@{!viewModel.isFraud}'
-              android:gravity="center"
+              android:gravity="center_vertical"
               android:text="@string/verified"
-              app:buttonTint="@color/wageningen_green"
+              app:buttonTint="@color/md_green_700"
               />
 
-          <android.support.v7.widget.AppCompatCheckBox
+          <android.support.v7.widget.AppCompatRadioButton
               android:id="@+id/a_transaction_detail_fraudlent"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:layout_marginLeft="@dimen/view_margin_size2"
-              android:layout_marginRight="@dimen/view_margin_size2"
               android:layout_weight="1"
               android:checked='@{viewModel.isFraud}'
-              android:gravity="center"
+              android:enabled='@{!viewModel.isVerified}'
+              android:gravity="center_vertical"
               android:text="@string/fraud"
               app:buttonTint="@color/persian_red"
               />
-        </LinearLayout>
+        </RadioGroup>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

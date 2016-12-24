@@ -5,4 +5,5 @@
   <string name="fraud">Fraud</string>
   <string name="expense_detail">Expense Detail</string>
   <string name="failed_to_load">Error fetching content</string>
+  <string name="unverified">Unverified</string>
 </resources>
