@@ -4,7 +4,6 @@ import android.app.AlarmManager;
 import android.app.Application;
 import android.app.PendingIntent;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
@@ -22,6 +21,7 @@ import com.ground0.model.TransactionObject;
 import com.ground0.repository.repository.UserRepositoryImpl;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.commons.lang3.StringUtils;
 import rx.android.schedulers.AndroidSchedulers;
 
 /**
@@ -65,13 +65,19 @@ public class TransactionListActivityViewModel extends BaseActivityViewModel<Tran
   }
 
   public void fetchData() {
+    getActivity().onStartDataLoad();
     getCompositeSubscription().add(userRepository.getTransactions()
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(getSubscriptionBuilder().builder().onNext(value -> {
           transactionObject = (TransactionObject) value;
           updateData(transactionObject.getExpenses());
-        }).onError(error -> {
-          error.printStackTrace();
+          getActivity().onFinishDataLoad();
+        }).onError(e -> {
+          String errorMessage = "Something went wrong";
+          if (e instanceof Throwable) {
+            errorMessage = StringUtils.isNotBlank(e.getMessage()) ? e.getMessage() : errorMessage;
+          }
+          getActivity().showError(errorMessage);
         }).setUnsubscribeOnComplete(true).build()));
   }
 
@@ -104,5 +110,9 @@ public class TransactionListActivityViewModel extends BaseActivityViewModel<Tran
   @Override public void openDetail(Expense expense) {
     getAppBehaviourBus().onNext(new ViewDetail(expense));
     getActivity().startActivity(new Intent(getActivity(), TransactionDetailActivity.class));
+  }
+
+  public List<Expense> getData() {
+    return expenses;
   }
 }
