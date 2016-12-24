@@ -161,7 +161,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:checked='@{viewModel.isVerified}'
-                android:enabled='@{!viewModel.isFraud}'
                 android:gravity="center_vertical"
                 android:text="@string/verified"
                 app:buttonTint="@color/md_green_700"
@@ -173,7 +172,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:checked='@{viewModel.isFraud}'
-                android:enabled='@{!viewModel.isVerified}'
                 android:gravity="center_vertical"
                 android:text="@string/fraud"
                 app:buttonTint="@color/persian_red"
