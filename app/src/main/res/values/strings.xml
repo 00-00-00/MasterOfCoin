@@ -6,4 +6,6 @@
   <string name="expense_detail">Expense Detail</string>
   <string name="failed_to_load">Error fetching content</string>
   <string name="unverified">Unverified</string>
+  <string name="category">Category</string>
+  <string name="description">Description</string>
 </resources>
