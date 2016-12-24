@@ -1,9 +1,13 @@
 package com.ground0.masterofcoin.auditTransaction.activity;
 
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.util.Pair;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -82,7 +86,8 @@ public class TransactionListActivity extends BaseActivity {
     onFinishDataLoad();
     View view = getWindow().getDecorView().getRootView().findViewById(android.R.id.content);
     Snackbar.make(view, errorMessage, Snackbar.LENGTH_INDEFINITE)
-        .setAction("Retry", v -> viewModel.fetchData()).show();
+        .setAction("Retry", v -> viewModel.fetchData())
+        .show();
   }
 
   public void onStartDataLoad() {
@@ -99,6 +104,17 @@ public class TransactionListActivity extends BaseActivity {
       toggleEmptyView(true);
     } else {
       toggleEmptyView(false);
+    }
+  }
+
+  public void launchTransactionDetailActivity(Pair<View, String>... transitionElements) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+      Intent intent = new Intent(this, TransactionDetailActivity.class);
+      ActivityOptionsCompat options = ActivityOptionsCompat.
+          makeSceneTransitionAnimation(this, transitionElements);
+      startActivity(intent, options.toBundle());
+    } else {
+      startActivity(new Intent(this, TransactionDetailActivity.class));
     }
   }
 }

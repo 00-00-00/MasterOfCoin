@@ -1,6 +1,8 @@
 package com.ground0.masterofcoin.auditTransaction.viewModel.helper;
 
 import android.graphics.drawable.Drawable;
+import android.support.v4.util.Pair;
+import android.view.View;
 import com.ground0.model.Expense;
 
 /**
@@ -8,7 +10,7 @@ import com.ground0.model.Expense;
  */
 
 public interface TransactionItemViewModelHandler {
-  void openDetail(Expense expense);
+  void openDetail(Expense expense, Pair<View, String>... sharedElements);
   Drawable getDrawable(int drawable);
   int getColor(int color);
 }

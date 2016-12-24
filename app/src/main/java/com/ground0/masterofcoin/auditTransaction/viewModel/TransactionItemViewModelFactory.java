@@ -1,7 +1,10 @@
 package com.ground0.masterofcoin.auditTransaction.viewModel;
 
 import android.graphics.drawable.Drawable;
+import android.support.v4.util.Pair;
 import android.view.View;
+import butterknife.ButterKnife;
+import com.ground0.masterofcoin.R;
 import com.ground0.masterofcoin.auditTransaction.viewModel.helper.TransactionItemViewModelHandler;
 import com.ground0.masterofcoin.core.util.ResourceUtil;
 import com.ground0.model.Expense;
@@ -39,7 +42,20 @@ public class TransactionItemViewModelFactory {
     }
 
     public void openDetail(View view) {
-      handler.openDetail(expense);
+      if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+
+        View cardView = view;
+        View imageView = ButterKnife.findById(view, R.id.i_transaction_image);
+
+        cardView.setTransitionName("DETAIL_CARD_TRANSITION");
+        imageView.setTransitionName("DETAIL_IMAGE_TRANSITION");
+
+        Pair<View, String> pair1 = Pair.create(cardView, cardView.getTransitionName());
+        Pair<View, String> pair2 = Pair.create(imageView, imageView.getTransitionName());
+        handler.openDetail(expense, pair1, pair2);
+      } else {
+        handler.openDetail(expense);
+      }
     }
 
     public String getAmount() {

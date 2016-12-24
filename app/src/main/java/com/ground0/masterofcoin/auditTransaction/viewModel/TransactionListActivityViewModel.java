@@ -1,13 +1,13 @@
 package com.ground0.masterofcoin.auditTransaction.viewModel;
 
 import android.app.PendingIntent;
-import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.util.Pair;
 import android.util.Log;
+import android.view.View;
 import com.google.android.gms.gcm.GcmNetworkManager;
 import com.google.android.gms.gcm.PeriodicTask;
-import com.ground0.masterofcoin.auditTransaction.activity.TransactionDetailActivity;
 import com.ground0.masterofcoin.auditTransaction.activity.TransactionListActivity;
 import com.ground0.masterofcoin.auditTransaction.adapter.TransactionListAdapter;
 import com.ground0.masterofcoin.auditTransaction.service.DataPollService;
@@ -104,9 +104,9 @@ public class TransactionListActivityViewModel extends BaseActivityViewModel<Tran
     gcmNetworkManager.cancelAllTasks(DataPollService.class);
   }
 
-  @Override public void openDetail(Expense expense) {
+  @Override public void openDetail(Expense expense, Pair<View, String>... sharedElements) {
     getAppBehaviourBus().onNext(new ViewDetail(expense));
-    getActivity().startActivity(new Intent(getActivity(), TransactionDetailActivity.class));
+    getActivity().launchTransactionDetailActivity(sharedElements);
   }
 
   public List<Expense> getData() {

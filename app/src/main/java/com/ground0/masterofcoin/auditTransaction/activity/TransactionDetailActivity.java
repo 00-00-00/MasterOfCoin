@@ -1,10 +1,12 @@
 package com.ground0.masterofcoin.auditTransaction.activity;
 
 import android.databinding.DataBindingUtil;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.view.View;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnCheckedChanged;
 import com.ground0.masterofcoin.R;
@@ -20,6 +22,8 @@ public class TransactionDetailActivity extends BaseActivity {
 
   TransactionDetailActivityViewModel viewModel = new TransactionDetailActivityViewModel();
   ActivityTransactionDetailBinding transactionDetailBinding;
+  @BindView(R.id.a_transaction_detail_image) View imageView;
+  @BindView(R.id.a_transaction_detail_card) View cardView;
 
   @Override public void registerActivityWithViewModel() {
     viewModel.registerActivity(this);
@@ -31,6 +35,14 @@ public class TransactionDetailActivity extends BaseActivity {
         DataBindingUtil.setContentView(this, R.layout.activity_transaction_detail);
     ButterKnife.bind(this);
     transactionDetailBinding.setViewModel(viewModel);
+    initTransitions();
+  }
+
+  private void initTransitions() {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+      cardView.setTransitionName("DETAIL_CARD_TRANSITION");
+      imageView.setTransitionName("DETAIL_IMAGE_TRANSITION");
+    }
   }
 
   public void invalidateBinding() {
