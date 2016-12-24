@@ -1,7 +1,7 @@
 package com.ground0.masterofcoin.core.baseViewModel;
 
 import com.ground0.masterofcoin.core.baseComponents.BaseActivity;
-import com.ground0.masterofcoin.core.event.Event;
+import com.ground0.event.Event;
 import com.ground0.masterofcoin.core.rx.SubscriptionBuilder;
 import java.lang.ref.WeakReference;
 import rx.subjects.BehaviorSubject;

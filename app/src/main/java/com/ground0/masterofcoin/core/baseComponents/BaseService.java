@@ -1,7 +1,7 @@
 package com.ground0.masterofcoin.core.baseComponents;
 
 import android.app.IntentService;
-import com.ground0.masterofcoin.core.event.Event;
+import com.ground0.event.Event;
 import com.ground0.masterofcoin.core.rx.SubscriptionBuilder;
 import rx.subjects.BehaviorSubject;
 import rx.subjects.PublishSubject;

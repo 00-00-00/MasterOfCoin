@@ -45,6 +45,7 @@ public class ServerStore implements UserRepository {
         new OkHttpClient.Builder().connectTimeout(CONNECT_TIMEOUT_MILLIS, TimeUnit.SECONDS)
             .readTimeout(READ_TIMEOUT_MILLIS, TimeUnit.SECONDS)
             .retryOnConnectionFailure(true)
+            //.addInterceptor(new ConnectivityCheckInterceptor(context, appPublishBus))
             .build();
 
     Retrofit retrofit = new Retrofit.Builder().baseUrl(host)

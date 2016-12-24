@@ -1,6 +1,7 @@
 package com.ground0.masterofcoin.core.event;
 
 import com.ground0.model.Expense;
+import com.ground0.event.Event;
 
 /**
  * Created by zer0 on 23/12/16.

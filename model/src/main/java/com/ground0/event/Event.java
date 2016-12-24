@@ -1,4 +1,4 @@
-package com.ground0.masterofcoin.core.event;
+package com.ground0.event;
 
 /**
  * Created by zer0 on 22/12/16.
