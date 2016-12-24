@@ -50,6 +50,7 @@ public class TransactionDetailActivity extends BaseActivity {
   public void showError(String errorMessage) {
     View view = getWindow().getDecorView().getRootView().findViewById(android.R.id.content);
     Snackbar.make(view, errorMessage, Snackbar.LENGTH_INDEFINITE)
-        .setAction("Retry", v -> viewModel.retry());
+        .setAction("Retry", v -> viewModel.retry())
+        .show();
   }
 }

@@ -82,7 +82,7 @@ public class TransactionListActivity extends BaseActivity {
     onFinishDataLoad();
     View view = getWindow().getDecorView().getRootView().findViewById(android.R.id.content);
     Snackbar.make(view, errorMessage, Snackbar.LENGTH_INDEFINITE)
-        .setAction("Retry", v -> viewModel.fetchData());
+        .setAction("Retry", v -> viewModel.fetchData()).show();
   }
 
   public void onStartDataLoad() {
