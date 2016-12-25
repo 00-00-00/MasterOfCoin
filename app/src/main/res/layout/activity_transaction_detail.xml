@@ -153,7 +153,6 @@
                 android:checked='@{!viewModel.isVerified &amp;&amp; !viewModel.isFraud}'
                 android:gravity="center_vertical"
                 android:text="@string/unverified"
-                app:buttonTint="@color/md_yellow_700"
                 />
             <android.support.v7.widget.AppCompatRadioButton
                 android:id="@+id/a_transaction_detail_verified"
@@ -163,7 +162,6 @@
                 android:checked='@{viewModel.isVerified}'
                 android:gravity="center_vertical"
                 android:text="@string/verified"
-                app:buttonTint="@color/md_green_700"
                 />
 
             <android.support.v7.widget.AppCompatRadioButton
@@ -174,7 +172,6 @@
                 android:checked='@{viewModel.isFraud}'
                 android:gravity="center_vertical"
                 android:text="@string/fraud"
-                app:buttonTint="@color/persian_red"
                 />
           </RadioGroup>
           <Button
