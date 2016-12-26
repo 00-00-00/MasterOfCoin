@@ -160,6 +160,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:checked='@{viewModel.isVerified}'
+                android:enabled='@{viewModel.verifiedEnabled}'
                 android:gravity="center_vertical"
                 android:text="@string/verified"
                 />
@@ -170,6 +171,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:checked='@{viewModel.isFraud}'
+                android:enabled='@{viewModel.fraudEnabled}'
                 android:gravity="center_vertical"
                 android:text="@string/fraud"
                 />

@@ -33,6 +33,8 @@ public class TransactionDetailActivityViewModel
   Drawable category;
   int state;
   String time;
+  boolean fraudEnabled;
+  boolean verifiedEnabled;
 
   private static final DateTimeFormatter DATE_TIME_FORMATTER =
       DateTimeFormatter.ofPattern("EEE, dd MMM yyyy HH:mm:ss");
@@ -83,6 +85,8 @@ public class TransactionDetailActivityViewModel
         ContextCompat.getDrawable(getActivity(), ResourceUtil.getDrawable(expense.getCategory()));
     state = ContextCompat.getColor(getActivity(), ResourceUtil.getColor(expense.getState()));
     time = DATE_TIME_FORMATTER.format(expense.getTime());
+    fraudEnabled = !isVerified.get();
+    verifiedEnabled = !isFraud.get();
   }
 
   private void saveData() {
@@ -155,5 +159,13 @@ public class TransactionDetailActivityViewModel
 
   public String getTime() {
     return time;
+  }
+
+  public boolean isFraudEnabled() {
+    return fraudEnabled;
+  }
+
+  public boolean isVerifiedEnabled() {
+    return verifiedEnabled;
   }
 }
