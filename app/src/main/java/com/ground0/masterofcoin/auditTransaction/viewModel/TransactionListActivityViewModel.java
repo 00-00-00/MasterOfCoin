@@ -1,16 +1,12 @@
 package com.ground0.masterofcoin.auditTransaction.viewModel;
 
-import android.app.PendingIntent;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.util.Pair;
 import android.util.Log;
 import android.view.View;
-import com.google.android.gms.gcm.GcmNetworkManager;
-import com.google.android.gms.gcm.PeriodicTask;
 import com.ground0.masterofcoin.auditTransaction.activity.TransactionListActivity;
 import com.ground0.masterofcoin.auditTransaction.adapter.TransactionListAdapter;
-import com.ground0.masterofcoin.auditTransaction.service.DataPollService;
 import com.ground0.masterofcoin.auditTransaction.viewModel.helper.TransactionItemViewModelHandler;
 import com.ground0.masterofcoin.core.baseViewModel.BaseActivityViewModel;
 import com.ground0.masterofcoin.core.event.ExpenseUpdated;
@@ -20,6 +16,8 @@ import com.ground0.model.TransactionObject;
 import com.ground0.repository.repository.UserRepositoryImpl;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 import org.apache.commons.lang3.StringUtils;
 import rx.android.schedulers.AndroidSchedulers;
 
@@ -30,17 +28,17 @@ import rx.android.schedulers.AndroidSchedulers;
 public class TransactionListActivityViewModel extends BaseActivityViewModel<TransactionListActivity>
     implements TransactionItemViewModelHandler {
 
-  List<Expense> expenses = new ArrayList<>();
-  TransactionObject transactionObject;
-  TransactionListAdapter transactionListAdapter;
-  UserRepositoryImpl userRepository = UserRepositoryImpl.getInstance();
-  GcmNetworkManager gcmNetworkManager;
-  PendingIntent alarmIntent;
+  private List<Expense> expenses = new ArrayList<>();
+  private TransactionObject transactionObject;
+  private TransactionListAdapter transactionListAdapter;
+  private UserRepositoryImpl userRepository = UserRepositoryImpl.getInstance();
+  //private GcmNetworkManager gcmNetworkManager;  //Removing gcm manager for <10s refresh requirement
+  private Timer timer = new Timer();
 
   @Override public void afterRegister() {
     super.afterRegister();
     initSubscriptions();
-    gcmNetworkManager = GcmNetworkManager.getInstance(getActivity());
+    //gcmNetworkManager = GcmNetworkManager.getInstance(getActivity());
   }
 
   @Override public Drawable getDrawable(int drawable) {
@@ -93,15 +91,23 @@ public class TransactionListActivityViewModel extends BaseActivityViewModel<Tran
   }
 
   public void initPollService() {
-    PeriodicTask task = new PeriodicTask.Builder().setService(DataPollService.class)
+   /* PeriodicTask task = new PeriodicTask.Builder().setService(DataPollService.class)
         .setTag(DataPollService.class.getSimpleName())
         .setPeriod(30L)
         .build();
-    gcmNetworkManager.schedule(task);
+    gcmNetworkManager.schedule(task);*/
+
+    timer.schedule(new TimerTask() {
+      @Override public void run() {
+        Log.d(getClass().getSimpleName(), "Timer executing");
+        fetchData();
+      }
+    }, 5 * 1000, 10 * 1000);
   }
 
   public void finishPollService() {
-    gcmNetworkManager.cancelAllTasks(DataPollService.class);
+    timer.cancel();
+    //gcmNetworkManager.cancelAllTasks(DataPollService.class);
   }
 
   @Override public void openDetail(Expense expense, Pair<View, String>... sharedElements) {
